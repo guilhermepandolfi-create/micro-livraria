@@ -32,5 +32,27 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/overlayscrollbars/1.9.1/js/OverlayScrollbars.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="index.js"></script>
-    </body>
+        <script>
+            function buscarLivro() {
+            const id = document.getElementById('idLivro').value;
+
+            fetch(`http://localhost:3000/product/${id}`)
+                .then(res => res.json())
+                .then(livro => {
+                document.getElementById('resultado').innerHTML = `
+                    <h3>${livro.nome}</h3>
+                    <p>Preço: R$ ${livro.preco}</p>
+                `;
+                })
+                .catch(() => {
+                document.getElementById('resultado').innerHTML = 'Livro não encontrado';
+                });
+            }
+        </script>
+
+        <input id="idLivro" placeholder="Digite o ID do livro">
+        <button onclick="buscarLivro()">Pesquisar Livro</button>
+
+        <div id="resultado"></div>
+</body>
 </html>
